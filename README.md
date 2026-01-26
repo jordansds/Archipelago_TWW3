@@ -3,9 +3,12 @@
 Upon starting a new game, all factions have their start positions randomised. Units, buildings, and technologies are
 shuffled into the item pool meaning that you can't access them until the corresponding items are found in the multiworld.
 The goal of this apworld is to conquer a certain number of settlements simultaneously, configurable in the yaml.
-Additionally, your checks are determined by the goal - if your goal is 50 settlements, every settlement from 3-49 will
-grant checks. The number of checks you send per settlement can be modified in the yaml - this is to account for how slow
-TWW3 can be to play and allows you to tailor the pacing of checks to match other games in the multiworld.
+Additionally, your checks are determined by the goal - if your goal is 50 settlements, every settlement from 5-49 will
+grant checks (unless your faction doesn't start with a home region, in which case it's 1-49). The number of checks you
+send per settlement can be modified in the yaml - this is to account for how slow TWW3 can be to play and allows you to
+tailor the pacing of checks to match other games in the multiworld.
+
+**Playing beastmen is not recommended at this time.**
 
 ## What the yaml do
 
