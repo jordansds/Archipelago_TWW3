@@ -30,7 +30,7 @@ some factions have a lot of items that need generating while other factions need
 out of locations and you don't want to increase the number of settlements needed to goal, try increasing checks_per_location
 instead.*
 
-**balance**: Holdover from the original apworld. Possibly doesn't do anything.
+**balance**: Holdover from the original apworld. Might not do anything.
 
 **max_range**: How far away settlements can be from each other during randomization.
 
