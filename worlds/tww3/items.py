@@ -89,8 +89,9 @@ def generateUnitItems(world: TWW3World, pool: list) -> list:
                 (world.player_faction == "wh3_dlc27_sla_the_tormentors" and item.faction == "wh3_main_sla_seducers_of_slaanesh") or
                 (world.player_faction == "wh3_dlc27_sla_masque_of_slaanesh" and item.faction == "wh3_main_sla_seducers_of_slaanesh"))
                 and (item.tier > world.options.starting_tier.value) and (world.options.unit_shuffle.value == True)):
-                tww3_item = TWW3Item(item.name, item_table[item_id].classification, item_id, player=world.player)
-                pool.append(tww3_item)
+                for i in range(item.count):
+                    tww3_item = TWW3Item(item.name, item_table[item_id].classification, item_id, player=world.player)
+                    pool.append(tww3_item)
     return pool
     
 def generateBuildingItems(world: TWW3World, pool: list) -> list:
@@ -102,8 +103,9 @@ def generateBuildingItems(world: TWW3World, pool: list) -> list:
                 (world.player_faction == "wh3_dlc27_sla_the_tormentors" and item.faction == "wh3_main_sla_seducers_of_slaanesh") or
                 (world.player_faction == "wh3_dlc27_sla_masque_of_slaanesh" and item.faction == "wh3_main_sla_seducers_of_slaanesh"))
                 and (item.tier +1 > world.options.starting_tier.value) and (world.options.building_shuffle.value == True)):
-                tww3_item = TWW3Item(item.name, item_table[item_id].classification, item_id, player=world.player)
-                pool.append(tww3_item)
+                for i in range(item.count):
+                    tww3_item = TWW3Item(item.name, item_table[item_id].classification, item_id, player=world.player)
+                    pool.append(tww3_item)
     return pool
 
 def generateRitualItems(world: TWW3World, pool: list) -> list:
@@ -114,8 +116,9 @@ def generateRitualItems(world: TWW3World, pool: list) -> list:
                 (world.player_faction == "wh3_dlc27_nor_sayl" and item.faction == "wh_dlc08_nor_norsca") or
                 (world.player_faction == "wh3_dlc27_sla_the_tormentors" and item.faction == "wh3_main_sla_seducers_of_slaanesh") or
                 (world.player_faction == "wh3_dlc27_sla_masque_of_slaanesh" and item.faction == "wh3_main_sla_seducers_of_slaanesh")):
-                tww3_item = TWW3Item(item.name, item_table[item_id].classification, item_id, player=world.player)
-                pool.append(tww3_item)
+                for i in range(item.count):
+                    tww3_item = TWW3Item(item.name, item_table[item_id].classification, item_id, player=world.player)
+                    pool.append(tww3_item)
     return pool
 #item_manager = fillerItemManager(world.options.filler_weak.value, world.options.filler_strong.value, 0, world.options.trap_weak.value, world.options.trap_strong.value, world.random)
 
