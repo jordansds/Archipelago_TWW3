@@ -1,4 +1,4 @@
-# Total War: Warhammer 3 Archipelago fork
+# Total War: Warhammer 3 Archipelago Alt.
 ## How does this work?
 Upon starting a new game, all factions have their start positions randomised. Units, buildings, and technologies are
 shuffled into the item pool meaning that you can't access them until the corresponding items are found in the multiworld.
