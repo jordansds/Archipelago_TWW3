@@ -1,4 +1,4 @@
-from typing import Dict, Any, Mapping, ClassVar
+from typing import Any, Mapping, ClassVar
 from worlds.AutoWorld import World
 from BaseClasses import Region
 from .options import TWW3Options

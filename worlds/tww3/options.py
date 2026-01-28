@@ -173,7 +173,7 @@ class StartingTier(Range):
     range_end = 5
     default = 1
 
-class filler_weak(Range):
+class fillerWeak(Range):
     """Weight of weak filler items.
     Example: filler_weak: 30, filler_strong: 10, trap_harmless: 30, trap_weak: 25, trap_strong: 5
     Would mean, that approximatelly 30% are weak filler, 10% are strong filler, etc, since the weights add up to 100.
@@ -182,14 +182,14 @@ class filler_weak(Range):
     range_end = 100
     default = 30
 
-class filler_strong(Range):
+class fillerStrong(Range):
     """Weight of strong filler items.
     Experimental Feature."""
     range_start = 0
     range_end = 100
     default = 20
 
-class trap_weak(Range):
+class trapWeak(Range):
     """Weight of weak traps.
     Be careful, collecting a vast amount of them may require you to start a new save.
     Experimental Feature."""
@@ -197,7 +197,7 @@ class trap_weak(Range):
     range_end = 100
     default = 30
 
-class trap_strong(Range):
+class trapStrong(Range):
     """Weight of weak traps.
     Be careful, collecting a medium amount of them may require you to start a new save.
     Experimental Feature."""
@@ -224,9 +224,9 @@ class TWW3Options(PerGameCommonOptions):
     unit_shuffle: UnitShuffle
     progressive_units: ProgressiveUnits
     starting_tier: StartingTier
-    filler_weak: filler_weak
-    filler_strong: filler_strong
-    trap_weak: trap_weak
-    trap_strong: trap_strong
+    filler_weak: fillerWeak
+    filler_strong: fillerStrong
+    trap_weak: trapWeak
+    trap_strong: trapStrong
     randomize_personalities: RandomizePersonalities
     ritual_shuffle: RitualShuffle

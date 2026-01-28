@@ -34,7 +34,7 @@ class TWW3Item(Item):  # or from Items import MyGameItem
     
 def createAllItems(world: TWW3World) -> None:
     pool: list[TWW3Item] = []
-    
+
     for item_id, item in unique_item_table.items():
         if (item.faction == world.player_faction or 
             (world.player_faction == "wh3_dlc27_hef_aislinn" and item.faction == "wh2_main_hef_eataine") or 
