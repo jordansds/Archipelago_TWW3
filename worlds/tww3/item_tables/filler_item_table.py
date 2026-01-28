@@ -16,6 +16,11 @@ filler_strong_table: dict[int, ItemData] = {
     2502: ItemData(IC.filler, 0, "Something Shiny", ItemType.filler_strong, "None", None, "None")
 }
 
+trap_harmless_table: dict[int, ItemData] = {
+    3000: ItemData(IC.trap, 0, "Look! What\'s that?", ItemType.trap_harmless, "None", None, "None"),
+    3001: ItemData(IC.trap, 0, "Spoiler Alert!", ItemType.trap_harmless, "None", None, "None")
+}
+
 trap_weak_table: dict[int, ItemData] = {
     3100: ItemData(IC.trap, 0, "Handfull of Unrest", ItemType.trap_weak, "None", None, "None"),
     3101: ItemData(IC.trap, 0, "Unionize This!", ItemType.trap_weak, "None", None, "None"),

@@ -189,6 +189,13 @@ class fillerStrong(Range):
     range_end = 100
     default = 20
 
+class trapHarmless(Range):
+    """Weight of harmless traps.
+    These won't disrupt your game. They may, however, induce minor irritation."""
+    range_start = 0
+    range_end = 100
+    default = 0
+
 class trapWeak(Range):
     """Weight of weak traps.
     Be careful, collecting a vast amount of them may require you to start a new save.
@@ -226,6 +233,7 @@ class TWW3Options(PerGameCommonOptions):
     starting_tier: StartingTier
     filler_weak: fillerWeak
     filler_strong: fillerStrong
+    trap_harmless: trapHarmless
     trap_weak: trapWeak
     trap_strong: trapStrong
     randomize_personalities: RandomizePersonalities

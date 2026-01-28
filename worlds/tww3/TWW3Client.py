@@ -237,7 +237,7 @@ class TWW3Context(CommonContext):
     async def check(self, location):
         try:
             for i in range(int(self.checksPerLocation)):
-                logger.info(f"Sending Location Empire Size {location} ({i})".format(location,i))
+                logger.info(f"Sending Location Empire Size {location} ({i})")
                 #logger.info([int(location)*10-9 + i])
                 await self.check_locations([int(location)*10-9 + i])
             
@@ -263,7 +263,7 @@ class TWW3Context(CommonContext):
         self.ui = TWW3Manager(self)
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
 
-class EngineInitializer():
+class EngineInitializer:
 
     @classmethod
     def initialize(cls, context):

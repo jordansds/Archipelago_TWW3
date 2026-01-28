@@ -5,7 +5,7 @@ if TYPE_CHECKING:
 
 from BaseClasses import Item
 
-from .item_tables.filler_item_table import filler_weak_table, filler_strong_table, trap_weak_table, trap_strong_table
+from .item_tables.filler_item_table import filler_weak_table, filler_strong_table, trap_harmless_table, trap_weak_table, trap_strong_table
 from .item_tables.effect_table import global_effect_table
 from .item_tables.ancillaries_table import ancillaries_regular_table, ancillaries_legendary_table
 from .item_tables.unique_item_table import unique_item_table
@@ -18,11 +18,12 @@ from .item_tables.item_types import ItemType
 
 item_table = dict(filler_weak_table)
 item_table.update(filler_strong_table)
+item_table.update(trap_harmless_table)
+item_table.update(trap_weak_table)
+item_table.update(trap_strong_table)
 item_table.update(global_effect_table)
 item_table.update(ancillaries_regular_table)
 item_table.update(ancillaries_legendary_table)
-item_table.update(trap_weak_table)
-item_table.update(trap_strong_table)
 item_table.update(unique_item_table)
 item_table.update(progressive_buildings_table)
 item_table.update(progressive_units_table)
@@ -120,12 +121,11 @@ def generateRitualItems(world: TWW3World, pool: list) -> list:
                     tww3_item = world.create_item(item.name)
                     pool.append(tww3_item)
     return pool
-#item_manager = fillerItemManager(world.options.filler_weak.value, world.options.filler_strong.value, 0, world.options.trap_weak.value, world.options.trap_strong.value, world.random)
 
 def generateFillerItems(world: TWW3World, pool: list) -> list:
 
     fillerFunctions = [generateFillerWeak, generateFillerStrong, generateTrapWeak, generateTrapStrong] #List of functions for generating filler
-    weights = [world.options.filler_weak.value, world.options.filler_strong.value, world.options.trap_weak.value, world.options.trap_strong.value] #list of weights defined in YAML
+    weights = [world.options.filler_weak.value, world.options.filler_strong.value, world.options.trap_harmless.value, world.options.trap_weak.value, world.options.trap_strong.value] #list of weights defined in YAML
     
     if sum(weights) == 0:
         raise Exception("Invalid YAML: Sum of all filler and trap weighting must not be zero.")
@@ -171,6 +171,13 @@ def generateFillerStrong(world: TWW3World) -> TWW3Item:
         
     item = TWW3Item(name, item_table[key].classification, key, player=world.player) 
     
+    return item
+
+def generateTrapHarmless(world: TWW3World) -> TWW3Item:
+    key = world.random.choice(tuple(trap_harmless_table.keys()))
+    name = item_table[key].name
+
+    item = TWW3Item(name, item_table[key].classification, key, player=world.player)
     return item
 
 def generateTrapWeak(world: TWW3World) -> TWW3Item:
