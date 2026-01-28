@@ -36,7 +36,7 @@ class TWW3World(World):
     def generate_early(self) -> None:
         self.player_faction = settlements.lord_name_to_faction_dict[self.options.starting_faction]
         self.sm: settlements.Settlement_Manager = settlements.Settlement_Manager(self.random)
-        self.settlement_table, self.horde_table = self.sm.shuffle_settlements(self.player_faction, self.options.max_range) 
+        self.settlement_table, self.horde_table = self.sm.shuffle_settlements(self.player_faction, self.options.max_range.value)
 
     def create_regions(self) -> None:
         
@@ -57,29 +57,27 @@ class TWW3World(World):
 
         :return: A dictionary to be sent to the client when it connects to the server.
         """
-        slot_data: Dict = {}
-        
-        slot_data["PlayerFaction"] = self.options.starting_faction.value
-        if self.options.tech_shuffle.value == True:
-            slot_data["ProgressiveTechs"] = self.options.progressive_technologies.value
-        else:
-            slot_data["ProgressiveTechs"] = False
-        if self.options.building_shuffle.value == True:
-            slot_data["ProgressiveBuildings"] = self.options.progressive_buildings.value
-        else:
-            slot_data["ProgressiveBuildings"] = False
-        if self.options.unit_shuffle.value == True:
-            slot_data["ProgressiveUnits"] = self.options.progressive_units.value
-        else:
-            slot_data["ProgressiveUnits"] = False
-        slot_data["StartingTier"] = self.options.starting_tier.value
-        slot_data["RandomizePersonalities"] = self.options.RandomizePersonalities.value
-        slot_data["RitualShuffle"] = self.options.ritual_shuffle.value
-        slot_data["Settlements"] = self.settlement_table
-        slot_data["Hordes"] = self.horde_table
-        slot_data["FactionCapitals"] = self.sm.get_capital_dict()
-        slot_data["Items"] = self.item_list
-        slot_data["checksPerLocation"] = self.options.checks_per_location.value
-        slot_data["numberOfLocations"] = self.options.number_of_locations.value
+        slotData = self.options.as_dict("starting_faction",
+                                         "progressive_technologies", 
+                                         "progressive_buildings",
+                                         "progressive_units",
+                                         "starting_tier",
+                                         "randomize_personalities",
+                                         "ritual_shuffle",
+                                         "checks_per_location",
+                                         "number_of_locations",
+                                         )
+        slotData["settlements"] = self.settlement_table
+        slotData["hordes"] = self.horde_table
+        slotData["faction_capitals"] = self.sm.get_capital_dict()
+        slotData["items"] = self.item_list
 
-        return slot_data
+        return slotData
+
+    def create_item(self, name: str) -> items.TWW3Item:
+        key: int = self.item_name_to_id[name]
+        return items.TWW3Item(name, items.item_table[key].classification, key, player=self.player)
+
+    def get_filler_item_name(self) -> str:
+        item = items.generateFillerItems(self, [])[0]
+        return item.name

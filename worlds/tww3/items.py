@@ -41,20 +41,20 @@ def createAllItems(world: TWW3World) -> None:
             (world.player_faction == "wh3_dlc27_nor_sayl" and item.faction == "wh_dlc08_nor_norsca") or
             (world.player_faction == "wh3_dlc27_sla_the_tormentors" and item.faction == "wh3_main_sla_seducers_of_slaanesh") or
             (world.player_faction == "wh3_dlc27_sla_masque_of_slaanesh" and item.faction == "wh3_main_sla_seducers_of_slaanesh")):
-            if (item.tier != None):
-                if ((item.tier > world.options.starting_tier.value) and (item.type == ItemType.unit) and (world.options.unit_shuffle.value == True) and (world.options.progressive_units == False)):
+            if item.tier is not None:
+                if (item.tier > world.options.starting_tier.value) and (item.type == ItemType.unit) and (world.options.unit_shuffle.value == True) and (world.options.progressive_units == False):
                     for i in range(item.count):
-                        tww3_item = TWW3Item(item.name, item_table[item_id].classification, item_id, player=world.player)
+                        tww3_item = world.create_item(item.name)
                         pool.append(tww3_item)
                         world.item_list.append(item_id)
-                elif ((item.tier +1 > world.options.starting_tier.value) and (item.type == ItemType.building) and (world.options.building_shuffle.value == True) and (world.options.progressive_buildings == False)):
+                elif (item.tier +1 > world.options.starting_tier.value) and (item.type == ItemType.building) and (world.options.building_shuffle.value == True) and (world.options.progressive_buildings == False):
                     for i in range(item.count):
-                        tww3_item = TWW3Item(item.name, item_table[item_id].classification, item_id, player=world.player)
+                        tww3_item = world.create_item(item.name)
                         pool.append(tww3_item)
                         world.item_list.append(item_id)
-                elif ((world.options.tech_shuffle.value == True) and (item.type == ItemType.tech) and (world.options.progressive_technologies == False)):
+                elif (world.options.tech_shuffle.value == True) and (item.type == ItemType.tech) and (world.options.progressive_technologies == False):
                     for i in range(item.count):
-                        tww3_item = TWW3Item(item.name, item_table[item_id].classification, item_id, player=world.player)
+                        tww3_item = world.create_item(item.name)
                         pool.append(tww3_item)
                         world.item_list.append(item_id)
                         
@@ -67,7 +67,7 @@ def createAllItems(world: TWW3World) -> None:
     world.multiworld.itempool += pool
 
 def generateTechnologyItems(world: TWW3World, pool: list) -> list:
-    if (world.options.progressive_technologies == True):
+    if world.options.progressive_technologies:
         for item_id, item in progressive_techs_table.items():
             if ((item.faction == world.player_faction or 
                 (world.player_faction == "wh3_dlc27_hef_aislinn" and item.faction == "wh2_main_hef_eataine") or 
@@ -76,12 +76,12 @@ def generateTechnologyItems(world: TWW3World, pool: list) -> list:
                 (world.player_faction == "wh3_dlc27_sla_masque_of_slaanesh" and item.faction == "wh3_main_sla_seducers_of_slaanesh"))
                 and (world.options.tech_shuffle.value == True)):
                 for i in range(item.count):
-                    tww3_item = TWW3Item(item.name, item_table[item_id].classification, item_id, player=world.player)
+                    tww3_item = world.create_item(item.name)
                     pool.append(tww3_item)
     return pool
 
 def generateUnitItems(world: TWW3World, pool: list) -> list:
-    if (world.options.progressive_units == True):
+    if world.options.progressive_units:
         for item_id, item in progressive_units_table.items():
             if ((item.faction == world.player_faction or 
                 (world.player_faction == "wh3_dlc27_hef_aislinn" and item.faction == "wh2_main_hef_eataine") or 
@@ -90,12 +90,12 @@ def generateUnitItems(world: TWW3World, pool: list) -> list:
                 (world.player_faction == "wh3_dlc27_sla_masque_of_slaanesh" and item.faction == "wh3_main_sla_seducers_of_slaanesh"))
                 and (item.tier > world.options.starting_tier.value) and (world.options.unit_shuffle.value == True)):
                 for i in range(item.count):
-                    tww3_item = TWW3Item(item.name, item_table[item_id].classification, item_id, player=world.player)
+                    tww3_item = world.create_item(item.name)
                     pool.append(tww3_item)
     return pool
     
 def generateBuildingItems(world: TWW3World, pool: list) -> list:
-    if (world.options.progressive_buildings == True):
+    if world.options.progressive_buildings:
         for item_id, item in progressive_buildings_table.items():
             if ((item.faction == world.player_faction or 
                 (world.player_faction == "wh3_dlc27_hef_aislinn" and item.faction == "wh2_main_hef_eataine") or 
@@ -104,12 +104,12 @@ def generateBuildingItems(world: TWW3World, pool: list) -> list:
                 (world.player_faction == "wh3_dlc27_sla_masque_of_slaanesh" and item.faction == "wh3_main_sla_seducers_of_slaanesh"))
                 and (item.tier +1 > world.options.starting_tier.value) and (world.options.building_shuffle.value == True)):
                 for i in range(item.count):
-                    tww3_item = TWW3Item(item.name, item_table[item_id].classification, item_id, player=world.player)
+                    tww3_item = world.create_item(item.name)
                     pool.append(tww3_item)
     return pool
 
 def generateRitualItems(world: TWW3World, pool: list) -> list:
-    if (world.options.ritual_shuffle == True):
+    if world.options.ritual_shuffle:
         for item_id, item in ritual_table.items():
             if (item.faction == world.player_faction or 
                 (world.player_faction == "wh3_dlc27_hef_aislinn" and item.faction == "wh2_main_hef_eataine") or 
@@ -117,7 +117,7 @@ def generateRitualItems(world: TWW3World, pool: list) -> list:
                 (world.player_faction == "wh3_dlc27_sla_the_tormentors" and item.faction == "wh3_main_sla_seducers_of_slaanesh") or
                 (world.player_faction == "wh3_dlc27_sla_masque_of_slaanesh" and item.faction == "wh3_main_sla_seducers_of_slaanesh")):
                 for i in range(item.count):
-                    tww3_item = TWW3Item(item.name, item_table[item_id].classification, item_id, player=world.player)
+                    tww3_item = world.create_item(item.name)
                     pool.append(tww3_item)
     return pool
 #item_manager = fillerItemManager(world.options.filler_weak.value, world.options.filler_strong.value, 0, world.options.trap_weak.value, world.options.trap_strong.value, world.random)
@@ -125,7 +125,7 @@ def generateRitualItems(world: TWW3World, pool: list) -> list:
 def generateFillerItems(world: TWW3World, pool: list) -> list:
 
     fillerFunctions = [generateFillerWeak, generateFillerStrong, generateTrapWeak, generateTrapStrong] #List of functions for generating filler
-    weights = [world.options.filler_weak, world.options.filler_strong, world.options.trap_weak, world.options.trap_strong] #list of weights defined in YAML
+    weights = [world.options.filler_weak.value, world.options.filler_strong.value, world.options.trap_weak.value, world.options.trap_strong.value] #list of weights defined in YAML
     
     if sum(weights) == 0:
         raise Exception("Invalid YAML: Sum of all filler and trap weighting must not be zero.")

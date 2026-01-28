@@ -111,21 +111,22 @@ class TWW3Context(CommonContext):
         self.waaaghWatcher = WaaaghWatcher(self.path + '\\engine.out', self)
         waaaghWatcher_task = asyncio.create_task(self.waaaghWatcher.watch(), name='WaaaghWatcher')
         self.waaaghMessenger = WaaaghMessenger(self.path + '\\engine.in')
-        self.settlements = args['slot_data']['Settlements']
-        self.hordes = args['slot_data']['Hordes']
+        self.settlements = args['slot_data']['settlements']
+        self.hordes = args['slot_data']['hordes']
+        self.expansionItems = 1 #Begins with 1 fake item so that the player can own up to 5 settlements
         
-        self.playerFaction = lord_name_to_faction_dict[args['slot_data']['PlayerFaction']]
+        self.playerFaction = lord_name_to_faction_dict[args['slot_data']['starting_faction']]
         logger.info("The Player Faction is: " + self.playerFaction)
-        self.randitemList = args['slot_data']['Items']
-        self.capitals = args['slot_data']['FactionCapitals']
-        self.progressiveTechs = args['slot_data']['ProgressiveTechs']
-        self.progressiveBuildings = args['slot_data']['ProgressiveBuildings']
-        self.progressiveUnits = args['slot_data']['ProgressiveUnits']
-        self.startingTier = args['slot_data']['StartingTier']
-        self.shuffleRituals = args['slot_data']['RitualShuffle']
-        self.randomizePersonalities = args['slot_data']['RandomizePersonalities']
-        self.checksPerLocation = args['slot_data']['checksPerLocation']
-        self.numberOfLocations = args['slot_data']['numberOfLocations']
+        self.randitemList = args['slot_data']['items']
+        self.capitals = args['slot_data']['faction_capitals']
+        self.progressiveTechs = args['slot_data']['progressive_technologies']
+        self.progressiveBuildings = args['slot_data']['progressive_buildings']
+        self.progressiveUnits = args['slot_data']['progressive_units']
+        self.startingTier = args['slot_data']['starting_tier']
+        self.shuffleRituals = args['slot_data']['ritual_shuffle']
+        self.randomizePersonalities = args['slot_data']['randomize_personalities']
+        self.checksPerLocation = args['slot_data']['checks_per_location']
+        self.numberOfLocations = args['slot_data']['number_of_locations']
         EngineInitializer.initialize(self)
 
     def on_received_items(self, args: dict):
@@ -150,8 +151,10 @@ class TWW3Context(CommonContext):
                 else:
                     self.waaaghMessenger.run("cm:remove_event_restricted_unit_record_for_faction(\"%s\", \"%s\")" % (item.name, self.playerFaction))
             elif item.type == ItemType.progression:
-                self.waaaghMessenger.run("cm:set_admin_capacity()")# % (self.playerFaction, item.name))        
-            
+                self.expansionItems += 1
+                self.waaaghMessenger.run(f"cm:set_admin_capacity({self.expansionItems})")
+                logger.info(f"You now have: {self.expansionItems} Administrative Capacity")
+                logger.info(f"You can now control {self.expansionItems*5} settlements without penalties")
 
             elif item.type == ItemType.filler_weak:
                 if item.name == "Get-Rich-Quick Scroll":
@@ -268,11 +271,16 @@ class EngineInitializer():
         startingTier = context.startingTier
         waaaghMessenger = context.waaaghMessenger
         isFirstPlayerSettlement = True
+
+        ###
+        #Set Administrative Capacity
+        ###
+        waaaghMessenger.run(f"cm:set_admin_capacity({context.expansionItems})")
         
         ###
         #Randomise AI Personalities
         ###
-        if (context.randomizePersonalities == True):
+        if context.randomizePersonalities:
             waaaghMessenger.run("cm:cai_force_personality_change(\"All\")")
             
         ###
@@ -282,7 +290,7 @@ class EngineInitializer():
             waaaghMessenger.run("cm:transfer_region_to_faction(\"%s\", \"%s\")" % (settlement, faction))
             waaaghMessenger.run("cm:heal_garrison(cm:get_region(\"%s\"):cqi())" % (settlement))
             # waaaghMessenger.run("cm:get_campaign_ui_manager():highlight_settlement(cm:get_region(\"%s\"):settlement():key())" % (settlement))
-            if ((faction == playerFaction) and (isFirstPlayerSettlement == True)):
+            if faction == playerFaction and isFirstPlayerSettlement:
                 waaaghMessenger.run("cm:scroll_camera_to_region(\"%s\", \"%s\", 1)" % (faction, settlement))
                 isFirstPlayerSettlement = False
         
@@ -304,7 +312,7 @@ class EngineInitializer():
         ###
         #Locks rituals if randomised
         ###            
-        if (context.shuffleRituals == True):
+        if context.shuffleRituals:
             for key, ritual in ritual_table.items():
                 if (ritual.faction == playerFaction):
                     waaaghMessenger.run("cm:lock_ritual(cm:get_faction(\"%s\"), \"%s\")" % (playerFaction, ritual.name))
@@ -321,11 +329,11 @@ class EngineInitializer():
             elif ((itemData.type == ItemType.unit) and (context.progressiveUnits == False) and (itemData.progressionGroup != None)):
                 waaaghMessenger.run("cm:add_event_restricted_unit_record_for_faction(\"%s\", \"%s\")" % (itemData.name, playerFaction))
                 
-        if (context.progressiveTechs == True):
+        if context.progressiveTechs:
             cls.lock_progressive_techs(playerFaction, waaaghMessenger, context.item_table, context.progressive_items_flags)
-        if (context.progressiveBuildings == True):
+        if context.progressiveBuildings:
             cls.lock_progressive_buildings(playerFaction, startingTier, waaaghMessenger, context.item_table, context.progressive_items_flags)
-        if (context.progressiveUnits == True):
+        if context.progressiveUnits:
             cls.lock_progressive_units(playerFaction, startingTier, waaaghMessenger, context.item_table, context.progressive_items_flags)
 
     def lock_progressive_techs(playerFaction, waaaghMessenger, item_table, progressive_items_flags):
