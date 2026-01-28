@@ -228,5 +228,5 @@ class TWW3Options(PerGameCommonOptions):
     filler_strong: filler_strong
     trap_weak: trap_weak
     trap_strong: trap_strong
-    RandomizePersonalities: RandomizePersonalities
+    randomize_personalities: RandomizePersonalities
     ritual_shuffle: RitualShuffle

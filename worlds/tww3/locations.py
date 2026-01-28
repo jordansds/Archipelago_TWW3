@@ -19,7 +19,7 @@ def createAllLocations(world: TWW3World) -> None:
 def createRegularLocations(world: TWW3World) -> None:
     worldRegion = world.get_region("Old World")
     
-    if world.options.balance == True:
+    if world.options.balance:
         world.item_name_groups = {
             "Unlocks": set()
         }
