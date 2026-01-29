@@ -119,7 +119,7 @@ class TWW3Context(CommonContext):
         self.waaaghMessenger = WaaaghMessenger(self.path + '\\engine.in')
         self.settlements = args['slot_data']['settlements']
         self.hordes = args['slot_data']['hordes']
-        self.expansionItems = 1 #Begins with 1 fake item so that the player can own up to 5 settlements
+        self.expansionItems = 2 #Begins with 2 fake items so that the player can own up to 10 settlements at the start
         
         self.playerFaction = lord_name_to_faction_dict[args['slot_data']['starting_faction']]
         logger.info("The Player Faction is: " + self.playerFaction)
