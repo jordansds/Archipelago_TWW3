@@ -1,4 +1,8 @@
 # Total War: Warhammer 3 Archipelago Alt.
+##
+You must download the pack file included in the latest release. Do not use the workshop mod or this alt will not work.
+Include the mod in the pack file in the warhammer 3 data folder and enable it in your mod manager.
+
 ## How does this work?
 Upon starting a new game, all factions have their start positions randomised. Units, buildings, and technologies are
 shuffled into the item pool meaning that you can't access them until the corresponding items are found in the multiworld.
@@ -56,7 +60,7 @@ progressive items for each unit type (progressive infantry, progressive cavalry,
 
 **starting_tier**: Start with buildings and units of this tier already unlocked.
 
-**filler and traps**: Set to your own liking. Note that "strong" can be gamechangingly strong or even kill your run
+**filler and traps**: Set to your own liking.
 (you can reload a previous save, traps wont trigger twice). Filler items include all equipment items. The
 [No Item Requirement submod](https://steamcommunity.com/sharedfiles/filedetails/?id=3540371601) is recommended to
 make sure you can equip every item you get.
