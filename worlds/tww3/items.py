@@ -43,11 +43,21 @@ class TWW3Item(Item):  # or from Items import MyGameItem
 
 def createItemTable(world: TWW3World) -> None:
     for key, item in unique_item_table.items():
-        if item.type == ItemType.building and world.options.force_early_buildings:
+        if item.type == ItemType.tech and world.options.force_early_techs and not world.options.tech_shuffle:
             item_table[key] = ItemData(IC.progression, item[1], item[2], item[3], item[4], item[5], item[6])
-        elif item.type == ItemType.unit and world.options.force_early_units:
+        elif item.type == ItemType.unit and world.options.force_early_units and not world.options.unit_shuffle:
             item_table[key] = ItemData(IC.progression, item[1], item[2], item[3], item[4], item[5], item[6])
-        elif item.type == ItemType.tech and world.options.force_early_techs:
+        elif item.type == ItemType.building and world.options.force_early_buildings and not world.options.building_shuffle:
+            item_table[key] = ItemData(IC.progression, item[1], item[2], item[3], item[4], item[5], item[6])
+
+    if world.options.tech_shuffle and world.options.force_early_techs:
+        for key, item in progressive_buildings_table.items():
+            item_table[key] = ItemData(IC.progression, item[1], item[2], item[3], item[4], item[5], item[6])
+    if world.options.unit_shuffle and world.options.force_early_units:
+        for key, item in progressive_buildings_table.items():
+            item_table[key] = ItemData(IC.progression, item[1], item[2], item[3], item[4], item[5], item[6])
+    if world.options.building_shuffle and world.options.force_early_buildings:
+        for key, item in progressive_buildings_table.items():
             item_table[key] = ItemData(IC.progression, item[1], item[2], item[3], item[4], item[5], item[6])
 
 def createAllItems(world: TWW3World) -> None:
@@ -86,7 +96,7 @@ def createAllItems(world: TWW3World) -> None:
     world.multiworld.itempool += pool
 
 def generateTechnologyItems(world: TWW3World, pool: list) -> list:
-    if world.options.progressive_technologies:
+    if world.options.progressive_technologies and world.options.tech_shuffle:
         for key, item in progressive_techs_table.items():
             if ((item.faction == world.player_faction or 
                 (world.player_faction == "wh3_dlc27_hef_aislinn" and item.faction == "wh2_main_hef_eataine") or 
@@ -100,7 +110,7 @@ def generateTechnologyItems(world: TWW3World, pool: list) -> list:
     return pool
 
 def generateUnitItems(world: TWW3World, pool: list) -> list:
-    if world.options.progressive_units:
+    if world.options.progressive_units and world.options.unit_shuffle:
         for key, item in progressive_units_table.items():
             if ((item.faction == world.player_faction or 
                 (world.player_faction == "wh3_dlc27_hef_aislinn" and item.faction == "wh2_main_hef_eataine") or 
@@ -114,7 +124,7 @@ def generateUnitItems(world: TWW3World, pool: list) -> list:
     return pool
     
 def generateBuildingItems(world: TWW3World, pool: list) -> list:
-    if world.options.progressive_buildings:
+    if world.options.progressive_buildings and world.options.building_shuffle:
         for key, item in progressive_buildings_table.items():
             if ((item.faction == world.player_faction or 
                 (world.player_faction == "wh3_dlc27_hef_aislinn" and item.faction == "wh2_main_hef_eataine") or 
