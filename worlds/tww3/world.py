@@ -4,7 +4,7 @@ from BaseClasses import Region
 from .options import TWW3Options
 from .locations_table import settlements
 import settings
-from . import items, locations
+from . import items, locations, rules
 
 #class TWW3Location(Location):  # or from Locations import MyGameLocation
 #    game = "Total War Warhammer 3"  # name of the game/world this location is in
@@ -26,7 +26,8 @@ class TWW3World(World):
     topology_present = True # show path to required location checks in spoiler
     
     item_list = []
-    item_name_to_id = {data.name: item_id for item_id, data in items.item_table.items()}
+    #Need to check each progressive trigger and add items to item_table if required
+    item_name_to_id = {item.name: key for key, item in items.item_table.items()}
     
     locations = [f"Empire Size {i} ({j})" for i in range(1,566) for j in range(10)]
     location_name_to_id = {k: v for v, k in enumerate(locations, start=1)}
@@ -47,6 +48,7 @@ class TWW3World(World):
 
     def create_items(self) -> None:
         items.createAllItems(self)
+        rules.setBalance(self)
 
     def fill_slot_data(self) -> Mapping[str, Any]:
         """

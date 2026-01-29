@@ -19,14 +19,17 @@ def createAllLocations(world: TWW3World) -> None:
     
 def createRegularLocations(world: TWW3World) -> None:
     worldRegion = world.get_region("Old World")
-    
+
+    """
     if world.options.balance:
         world.item_name_groups = {
             "Unlocks": set()
         }
-        for item, value in items.item_table.items():
-            if value.classification == ItemClassification.useful and value.faction == world.player_faction:
-                world.item_name_groups["Unlocks"].add(value.name)
+        for key, item in items.item_table.items():
+            if item.classification == ItemClassification.progression and item.faction == world.player_faction and item.name != "Administrative Capacity":
+                world.item_name_groups["Unlocks"].add(item.name)
+        print(len(world.item_name_groups))
+    """
                 
     # Check if player has a starting region. If they do, then skip the first few checks to prevent the game from fulfilling checks before game start.
     # If the player is really lucky and starts with more than 4 settlements, then they will still autocomplete some checks, but not as many.    
@@ -43,11 +46,17 @@ def createRegularLocations(world: TWW3World) -> None:
             locId = world.location_name_to_id[locName]
 
             location = TWW3Location(world.player, locName, locId, worldRegion)
-            requiredAdminCapacity = math.floor(i / 5) - 1
-            print(f"{locName}: {requiredAdminCapacity}")
+            requiredAdminCapacity = max(0, math.floor(i / 5) - 1)
+            #print(f"{locName}: {requiredAdminCapacity}")
             add_rule(location, lambda state, count=requiredAdminCapacity: state.has("Administrative Capacity", world.player, count))
-
+            #if i % 5 == 0:
+            #requiredUsefulItems = min(requiredAdminCapacity*10, len(world.item_name_groups["Unlocks"]))
+            """
+            requiredUsefulItems = min(requiredAdminCapacity * world.options.checks_per_location * 3, 1000)
+            add_rule(location, lambda state, count=requiredUsefulItems: state.has_group("Unlocks", world.player, count))
+            """
             worldRegion.locations.append(location)
+
 
 
 def createEvents(world: TWW3World) -> None:

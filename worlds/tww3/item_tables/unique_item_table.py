@@ -24764,5 +24764,5 @@ unique_item_table: Dict[int, ItemData] = {
     107202: ItemData(IC.useful, 1, "wh_dlc08_tech_nor_nw_20", ItemType.tech, "wh_dlc08_nor_wintertooth", 4, "Progressive tech_nor"),
     107203: ItemData(IC.useful, 1, "wh_dlc08_tech_nor_nw_21", ItemType.tech, "wh_dlc08_nor_wintertooth", 5, "Progressive tech_nor"),
     107204: ItemData(IC.useful, 1, "wh_dlc08_tech_nor_other_18", ItemType.tech, "wh_dlc08_nor_wintertooth", 4, "Progressive tech_nor"),
-    107205: ItemData(IC.useful, 1, "wh_dlc08_tech_nor_other_19", ItemType.tech, "wh_dlc08_nor_wintertooth", 5, "Progressive tech_nor"), 
+    107205: ItemData(IC.useful, 1, "wh_dlc08_tech_nor_other_19", ItemType.tech, "wh_dlc08_nor_wintertooth", 5, "Progressive tech_nor"),
 } 
