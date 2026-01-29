@@ -188,8 +188,8 @@ class StartingTier(Range):
 
 class fillerWeak(Range):
     """Weight of weak filler items.
-    Example: filler_weak: 30, filler_strong: 10, trap_harmless: 30, trap_weak: 25, trap_strong: 5
-    Would mean, that approximatelly 30% are weak filler, 10% are strong filler, etc, since the weights add up to 100.
+    Example: filler_weak: 30, filler_strong: 20, trap_harmless: 0, trap_weak: 30, trap_strong: 20
+    Would mean, that approximately 30% are weak filler, 20% are strong filler, etc, since the weights add up to 100.
     You can deviate from that, but it will be less intuitive if the total number of weights is not 100."""
     range_start = 0
     range_end = 100
