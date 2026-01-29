@@ -141,7 +141,9 @@ def generateRitualItems(world: TWW3World, pool: list) -> list:
 
 def generateExpansionItems(world: TWW3World, pool: list) -> list:
     for i in range(1, math.floor(world.options.number_of_locations/5)):
-        pool.append(TWW3Item("Administrative Capacity", item_table[1000].classification, 1000, player=world.player))
+        item = world.create_item("Administrative Capacity")
+        pool.append(item)
+        #pool.append(TWW3Item("Administrative Capacity", item_table[1000].classification, 1000, player=world.player))
     return pool
 
 def generateFillerItems(world: TWW3World, pool: list) -> list:
@@ -177,8 +179,7 @@ def generateFillerWeak(world: TWW3World) -> TWW3Item:
     else:
         name = item_table[key].name
 
-    item = TWW3Item(name, item_table[key].classification, key, player=world.player)   
-    
+    item = world.create_item(name)
     return item
 
 def generateFillerStrong(world: TWW3World) -> TWW3Item:
@@ -191,29 +192,28 @@ def generateFillerStrong(world: TWW3World) -> TWW3Item:
     else:
         name = item_table[key].name
         
-    item = TWW3Item(name, item_table[key].classification, key, player=world.player) 
-    
+    item = world.create_item(name)
     return item
 
 def generateTrapHarmless(world: TWW3World) -> TWW3Item:
     key = world.random.choice(tuple(trap_harmless_table.keys()))
     name = item_table[key].name
 
-    item = TWW3Item(name, item_table[key].classification, key, player=world.player)
+    item = world.create_item(name)
     return item
 
 def generateTrapWeak(world: TWW3World) -> TWW3Item:
     key = world.random.choice(tuple(trap_weak_table.keys()))
     name = item_table[key].name
     
-    item = TWW3Item(name, item_table[key].classification, key, player=world.player) 
+    item = world.create_item(name)
     return item
 
 def generateTrapStrong(world: TWW3World) -> TWW3Item:
     key = world.random.choice(tuple(trap_strong_table.keys()))
     name = item_table[key].name
     
-    item = TWW3Item(name, item_table[key].classification, key, player=world.player) 
+    item = world.create_item(name)
     return item
 
 
