@@ -133,6 +133,7 @@ class TWW3Context(CommonContext):
         self.randomizePersonalities = args['slot_data']['randomize_personalities']
         self.checksPerLocation = args['slot_data']['checks_per_location']
         self.numberOfLocations = args['slot_data']['number_of_locations']
+        self.adminCapacity = args['slot_data']['admin_capacity']
         EngineInitializer.initialize(self)
 
     def on_received_items(self, args: dict):
@@ -160,7 +161,7 @@ class TWW3Context(CommonContext):
                 self.expansionItems += 1
                 self.waaaghMessenger.run(f"set_admin_capacity({self.expansionItems})")
                 logger.info(f"You now have: {self.expansionItems} Administrative Capacity")
-                logger.info(f"You can now control {self.expansionItems*5} settlements without penalties")
+                logger.info(f"You can now control {self.expansionItems*self.adminCapacity} settlements without penalties")
 
             elif item.type == ItemType.filler_weak:
                 if item.name == "Get-Rich-Quick Scroll":

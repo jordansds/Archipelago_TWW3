@@ -34,7 +34,7 @@ def createRegularLocations(world: TWW3World) -> None:
             locId = world.location_name_to_id[locName]
 
             location = TWW3Location(world.player, locName, locId, worldRegion)
-            requiredAdminCapacity = max(0, math.floor(i / 5) - 1)
+            requiredAdminCapacity = max(0, math.floor(i / world.options.admin_capacity) - 1)
             add_rule(location, lambda state, count=requiredAdminCapacity: state.has("Administrative Capacity", world.player, count))
             worldRegion.locations.append(location)
 
@@ -45,7 +45,7 @@ def createEvents(world: TWW3World) -> None:
     locName = f"Empire Size {world.options.number_of_locations}"
 
     location = TWW3Location(world.player, locName, None, worldRegion)
-    add_rule(location, lambda state, count=math.floor(world.options.number_of_locations/5) - 1: state.has("Administrative Capacity", world.player, count))
+    add_rule(location, lambda state, count=math.floor(world.options.number_of_locations/world.options.admin_capacity) - 1: state.has("Administrative Capacity", world.player, count))
     #print(f"{locName}: {math.floor(world.options.number_of_locations/5) - 1}")
     worldRegion.locations.append(location)  
     

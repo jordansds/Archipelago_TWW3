@@ -5,7 +5,8 @@ from dataclasses import dataclass
 
 class Faction(Choice):
     """Choose your Player Faction. In case you pick multiple factions, the Client will tell you after connecting which one you play.
-    Don't forget to remove the weight from the first entry."""
+    Don't forget to remove the weight from the first entry.
+    The last 4 options were introduced in the Tides of Torment DLC, this apworld may not randomise all content from that DLC at this time."""
     display_name = "Player Faction"
     option_beastmen = 1
     option_morghur_herd = 2
@@ -117,22 +118,36 @@ class FactionShuffle(DefaultOnToggle):
     display_name = "FactionShuffle"
     
 class numberOfLocations(Range):
-    """Set how large your empire needs to be to trigger every check"""
+    """Set how large your empire needs to be for victory. 565 Is the entire map.
+    Make sure to change this value based on how fast you want your game to be.
+    If world generation fails, then you will need to increase either this option or the next option."""
     display_name = "NumberOfLocations"
     range_start = 20
     range_end = 565
-    default = 50
+    default = 100
     
 class checksPerLocation(Range):
-    """Set how many checks are triggered per empire size increase"""
+    """Set how many checks are triggered per empire size increase (empire size being the number of settlements you own).
+    Depending on Yaml settings and the chosen faction, you will likely have around 100-200 non-filler items.
+    Make sure to change this value based on how many checks you want your game to contain.
+    If world generation fails, then you will need to increase either this option or the previous option."""
     display_name = "ChecksPerLocation"
     range_start = 1
     range_end = 10
     default = 3
 
+class adminCapacity(Range):
+    """Set how many settlements you can own before needing an additional admin capacity item to avoid debuffs.
+    Currently, is forced to 5 until I get around to updating the lua mod"""
+    display_name = "SettlementsPerAdminCapacity"
+    range_start = 5
+    range_end = 5
+    default = 5
+
 class MaxRange(Range):
-    """How far away a Settlement can be from a factions other settlements.
-    The minimal distance between two settlements is around 23 units, the maximum distance is about 1500 units"""
+    """How far away a Settlement can be from a factions other settlements during generation.
+    The samllest in-game distance between two settlements is around 23 units.
+    The maximum distance is around 1500 units."""
     range_start = 50
     range_end = 1500
     default = 200
@@ -141,7 +156,7 @@ class TechShuffle(DefaultOnToggle):
     """If Technologies should be shuffled."""
     display_name = "TechShuffle"
 
-class ProgressiveTechnologies(DefaultOnToggle):
+class ProgressiveTechnologies(Toggle):
     """If Technologies should be progressive. Requires TechShuffle to be on."""
     display_name = "Progressive Technologies"
 
@@ -230,12 +245,12 @@ class forceEarlyBuildings(Toggle):
 
 class forceEarlyUnits(Toggle):
     """If Buildings should be forced to generate near the start of the multiworld.
-    Requires BuildingShuffle to be on and balance to be greater than 0."""
+    Requires UnitShuffle to be on and balance to be greater than 0."""
     display_name = "ForceEarlyUnits"
 
 class forceEarlyTechs(Toggle):
     """If Buildings should be forced to generate near the start of the multiworld.
-    Requires BuildingShuffle to be on and balance to be greater than 0."""
+    Requires TechShuffle to be on and balance to be greater than 0."""
     display_name = "ForceEarlyTechs"
 
 @dataclass
@@ -244,6 +259,7 @@ class TWW3Options(PerGameCommonOptions):
     faction_shuffle: FactionShuffle
     number_of_locations: numberOfLocations
     checks_per_location: checksPerLocation
+    admin_capacity: adminCapacity
     max_range: MaxRange
     tech_shuffle: TechShuffle
     progressive_technologies: ProgressiveTechnologies
@@ -263,29 +279,3 @@ class TWW3Options(PerGameCommonOptions):
     force_early_buildings: forceEarlyBuildings
     force_early_units: forceEarlyUnits
     force_early_techs: forceEarlyTechs
-
-"""
-@dataclass
-class TWW3Options(PerGameCommonOptions):
-    starting_faction: Faction
-    faction_shuffle: FactionShuffle
-    number_of_locations: numberOfLocations 
-    checks_per_location: checksPerLocation
-    max_range: MaxRange
-    tech_shuffle: TechShuffle
-    progressive_technologies: ProgressiveTechnologies
-    building_shuffle: BuildingShuffle
-    progressive_buildings: ProgressiveBuildings
-    unit_shuffle: UnitShuffle
-    progressive_units: ProgressiveUnits
-    starting_tier: StartingTier
-    filler_weak: fillerWeak
-    filler_strong: fillerStrong
-    trap_harmless: trapHarmless
-    trap_weak: trapWeak
-    trap_strong: trapStrong
-    randomize_personalities: RandomizePersonalities
-    ritual_shuffle: RitualShuffle
-    balance: balance
-    
-"""

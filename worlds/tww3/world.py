@@ -70,6 +70,7 @@ class TWW3World(World):
                                          "ritual_shuffle",
                                          "checks_per_location",
                                          "number_of_locations",
+                                         "admin_capacity"
                                          )
         slotData["settlements"] = self.settlement_table
         slotData["hordes"] = self.horde_table

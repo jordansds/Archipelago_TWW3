@@ -141,7 +141,7 @@ def generateRitualItems(world: TWW3World, pool: list) -> list:
     return pool
 
 def generateExpansionItems(world: TWW3World, pool: list) -> list:
-    for i in range(1, math.floor(world.options.number_of_locations/5)):
+    for i in range(1, math.floor(world.options.number_of_locations/world.options.admin_capacity)):
         item = world.create_item("Administrative Capacity")
         pool.append(item)
     return pool
