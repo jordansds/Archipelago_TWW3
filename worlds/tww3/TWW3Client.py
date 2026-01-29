@@ -26,7 +26,7 @@ class TWW3CommandProcessor(ClientCommandProcessor):
         """Turn Traps off and on."""
         if isinstance(self.ctx, TWW3Context):
             self.ctx.are_traps_enabled = not self.ctx.are_traps_enabled
-            logger.info(f"Traps are now turned {"on" if self.ctx.are_traps_enabled else "off"}.")
+            logger.info(f"Traps are now turned {'on' if self.ctx.are_traps_enabled else 'off'}.")
             """
             if self.ctx.are_traps_enabled:
                 self.ctx.are_traps_enabled = False

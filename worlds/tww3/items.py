@@ -75,6 +75,7 @@ def createAllItems(world: TWW3World) -> None:
                         tww3_item = world.create_item(item.name)
                         pool.append(tww3_item)
                         #world.item_list.append(key)
+
     pool = generateTechnologyItems(world, pool)
     pool = generateUnitItems(world, pool)
     pool = generateBuildingItems(world, pool)
@@ -143,7 +144,6 @@ def generateExpansionItems(world: TWW3World, pool: list) -> list:
     for i in range(1, math.floor(world.options.number_of_locations/5)):
         item = world.create_item("Administrative Capacity")
         pool.append(item)
-        #pool.append(TWW3Item("Administrative Capacity", item_table[1000].classification, 1000, player=world.player))
     return pool
 
 def generateFillerItems(world: TWW3World, pool: list) -> list:
