@@ -120,7 +120,9 @@ class FactionShuffle(DefaultOnToggle):
 class numberOfSettlements(Range):
     """Set how large your empire needs to be for victory. 565 Is the entire map.
     Make sure to change this value based on how fast you want your game to be.
-    If world generation fails, then you will need to increase either this option or the next option."""
+    If world generation fails, then you will need to increase either this option or the next option.
+    Items will start being found after settlement 5 (unless you don't start with a settlement, in which case
+    you will receive them starting from settlement 1)."""
     display_name = "NumberOfSettlements"
     range_start = 20
     range_end = 565
@@ -138,7 +140,8 @@ class checksPerSettlement(Range):
 
 class adminCapacity(Range):
     """Set how many settlements you can own before needing an additional admin capacity item to avoid debuffs.
-    Currently, is forced to 5 until I get around to updating the lua mod"""
+    Currently, is forced to 5 until I get around to updating the lua mod.
+    The player will start with 2 admin capacity items to prevent early game being unable to do anything"""
     display_name = "SettlementsPerAdminCapacity"
     range_start = 1
     range_end = 565
