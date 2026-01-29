@@ -203,10 +203,10 @@ class fillerStrong(Range):
     default = 20
 
 class trapHarmless(Range):
-    """Weight of harmless traps.
+    """Weight of harmless traps Not currently implemented.
     These won't disrupt your game. They may, however, induce minor irritation."""
     range_start = 0
-    range_end = 100
+    range_end = 0
     default = 0
 
 class trapWeak(Range):
