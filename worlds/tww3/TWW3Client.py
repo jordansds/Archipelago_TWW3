@@ -3,7 +3,7 @@ import Utils
 import asyncio
 import colorama
 import logging
-from .locations_table.settlements import lord_name_to_faction_dict
+from .locations_table.settlements import lord_name_to_faction_dict, faction_name_to_readable
 from .item_tables.item_types import ItemType
 from .item_tables.filler_item_table import filler_weak_table, filler_strong_table, trap_weak_table, trap_strong_table
 from .item_tables.effect_table import global_effect_table
@@ -122,7 +122,12 @@ class TWW3Context(CommonContext):
         self.expansionItems = 2 #Begins with 2 fake items so that the player can own up to 10 settlements at the start
         
         self.playerFaction = lord_name_to_faction_dict[args['slot_data']['starting_faction']]
-        logger.info("The Player Faction is: " + self.playerFaction)
+
+        factionReadable = self.playerFaction #In case anything is broken
+        for key, value in lord_name_to_faction_dict.items():
+            if value == self.playerFaction:
+                factionReadable = faction_name_to_readable[key]
+        logger.info("The Player Faction is: " + factionReadable)
         self.randitemList = args['slot_data']['items']
         self.capitals = args['slot_data']['faction_capitals']
         self.progressiveTechs = args['slot_data']['progressive_technologies']
@@ -131,8 +136,8 @@ class TWW3Context(CommonContext):
         self.startingTier = args['slot_data']['starting_tier']
         self.shuffleRituals = args['slot_data']['ritual_shuffle']
         self.randomizePersonalities = args['slot_data']['randomize_personalities']
-        self.checksPerLocation = args['slot_data']['checks_per_location']
-        self.numberOfLocations = args['slot_data']['number_of_locations']
+        self.checksPerLocation = args['slot_data']['checks_per_settlement']
+        self.numberOfLocations = args['slot_data']['number_of_settlements']
         self.adminCapacity = args['slot_data']['admin_capacity']
         EngineInitializer.initialize(self)
 

@@ -68,8 +68,8 @@ class TWW3World(World):
                                          "starting_tier",
                                          "randomize_personalities",
                                          "ritual_shuffle",
-                                         "checks_per_location",
-                                         "number_of_locations",
+                                         "checks_per_settlement",
+                                         "number_of_settlements",
                                          "admin_capacity"
                                          )
         slotData["settlements"] = self.settlement_table

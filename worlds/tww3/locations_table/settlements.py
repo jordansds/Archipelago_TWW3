@@ -108,6 +108,137 @@ lord_name_to_faction_dict = {
     103: "wh3_dlc27_sla_masque_of_slaanesh"
 }
 
+faction_name_to_readable = {
+    1: "Khazrak the One-Eye (Beastmen)",
+    2: "Morghur the Shadowgave (Beastmen)",
+    3: "Durthu (Wood Elves)",
+    4: "Orion (Wood Elves)",
+    5: "Wulfrik the Wanderer (Norsca)",
+    6: "Throgg (Norsca)",
+    7: "Alberic de Bordeleaux (Bretonnia)",
+    8: "King Louen Leoncoeur (Bretonnia)",
+    9: "Fay Enchantress (Bretonnia)",
+    10: "Archaon the Everchosen (Warriors of Chaos)",
+    11: "Thorgrim Grudgebearer (Dwarfs)",
+    12: "Belegar Ironhammer (Dwarfs)",
+    13: "Ungrim Ironfist (Dwarfs)",
+    14: "Karl Franz (Empire)",
+    15: "Elspeth Von Draken (Empire)",
+    16: "Skarsnik (Greenskins)",
+    17: "Grimgor Ironhide (Greenskins)",
+    18: "Wurrzag da Great Green Prophet (Greenskins)",
+    19: "Vlad von Carstein (Vampire Counts)",
+    20: "Mannfred von Carstein (Vampire Counts)",
+    21: "Tretch Craventail (Skaven)",
+    22: "Grand Hierophant Khatep (Tomb Kings)",
+    23: "Arkhan the Black (Tomb Kings)",
+    24: "Settra... Great King, the Imperishable, Khemrikhara, The Great King of Nehekhara, King of Kings, "
+        "Opener of the Way, Wielder of the Divine Flame, Punisher of Nomads, The Great Unifier, "
+        "Commander of the Golden Legion, Sacred of Appearance, Bringer of Light, Father of Hawks, "
+        "Builder of Cities, Protector of the Two Worlds, Keeper of the Hours, Chosen of Ptra, "
+        "High Steward of the Horizon, Sailor of the Great Vitae, Sentinel of the Two Realms, "
+        "The Undisputed, Begetter of the Begat, Scourge of the Faithless, Carrion-feeder, "
+        "First of the Charnel Valley, Rider of the Sacred Chariot, Vanquisher of Vermin, "
+        "Champion of the Death Arena, Mighty Lion of the Infinite Desert, Emperor of the Shifting Sands, "
+        "He Who Holds The Sceptre, Great Hawk Of The Heavens, Arch-Sultan of Atalan, Waker of the Hierotitan, "
+        "Monarch of the Sky, Majestic Emperor of the Shifting Sands, Champion of the Desert Gods, "
+        "Breaker of the Ogre Clans, Builder of the Great Pyramid, Terror of the Living, "
+        "Master of the Never-Ending Horizon, Master of the Necropolises, Taker of Souls, "
+        "Tyrant to the Foolish, Bearer of Ptra's Holy Blade, Scion of Usirian, Scion of Nehek, The Great, "
+        "Chaser of Nightmares, Keeper of the Royal Herat, Founder of the Mortuary Cult, "
+        "Banisher of the Grand Hierophant, High Lord Admiral of the Deathfleets, Guardian of the Charnal Pass, "
+        "Tamer of the Liche King, Unliving Jackal Lord, Dismisser of the Warrior Queen, Charioteer of the Gods, "
+        "He Who Does Not Serve, Slayer off Reddittras, Scarab Purger, Favoured of Usirian, Player of the Great Game, "
+        "Liberator of Life, Lord Sand, Wrangler of Scorpions, Emperor of the Dunes, "
+        "Eternal Sovereign of Khemri's Legions, Seneschal of the Great Sandy Desert, Curserer of the Living, "
+        "Regent of the Eastern Mountains, Warden of the Eternal Necropolis, Herald of all Heralds, "
+        "Caller of the Bitter Wind, God-Tamer, Master of the Mortis River, Guardian of the Dead, "
+        "Great Keeper of the Obelisks, Deacon of the Ash River, Belated of Wakers, General of the Mighty Frame, "
+        "Summoner of Sandstorms, Master of all Necrotects, Prince of Dust, Tyrant of Araby, "
+        "Purger of the Greenskin Breathers, Killer of the False God's Champions, Tyrant of the Gold Dunes, "
+        "Golden Bone Lord, Avenger of the Dead, Carrion Master, Eternal Warden of Nehek's Lands, "
+        "Breaker of Djaf's Bonds... and many, many more... (Tomb Kings)",
+    25: "High Queen Khalida (Tomb Kings)",
+    26: "Count Noctilus (Vampire Coast)",
+    27: "Aranessa Saltspite (Vampire Coast)",
+    28: "Cylostra Direfin (Vampire Coast)",
+    29: "Luthor Harkon (Vampire Coast)",
+    30: "Lokhir Fellheart (Dark Elves)",
+    31: "Heinrich Kemmler (Vampire Counts)",
+    32: "Tehenhauin (Lizardmen)",
+    33: "Balthasar Gelt (Empire)",
+    34: "Markus Wulfhart (Empire)",
+    35: "Nakai the Wanderer (Lizardmen)",
+    36: "Repanse de Lyonesse (Bretonnia)",
+    37: "Azhag the Slaughterer (Greenskins)",
+    38: "Grom the Paunch (Greenskins)",
+    39: "Imrik (High Elves)",
+    40: "Drycha (Wood Elves)",
+    41: "Sisters of Twilight (Wood Elves)",
+    42: "Malagor the Dark Omen (Beastmen)",
+    43: "Taurox the Brass Bull (Beastmen)",
+    44: "Thorek Ironbrow (Dwarfs)",
+    45: "Oxyotl (Lizardmen)",
+    46: "Morathi (Dark Elves)",
+    47: "Malus Darkblade (Dark Elves)",
+    48: "Crone Helebron (Dark Elves)",
+    49: "Malekith (Dark Elves)",
+    50: "Alarielle the Radiant (High Elves)",
+    51: "Tyrion (High Elves)",
+    52: "Alith Anar (High Elves)",
+    53: "Teclis (High Elves)",
+    54: "Eltharion the Grim (High Elves)",
+    55: "Lord Mazdamundi (Lizardmen)",
+    56: "Gor-Rok (Lizardmen)",
+    57: "Kroq-Gar (Lizardmen)",
+    58: "Tiktaq'to (Lizardmen)",
+    59: "Deathmaster Snikch (Skaven)",
+    60: "Queek Headtaker (Skaven)",
+    61: "Throt the Unclean (Skaven)",
+    62: "Lord Skrolk (Skaven)",
+    63: "Ikit Claw (Skaven)",
+    64: "Rakarth the Beastmaster (Dark Elves)",
+    65: "Azazel (Warriors of Chaos)",
+    66: "Festus the Leechlord (Warriors of Chaos)",
+    67: "Kholek Suneater (Warriors of Chaos)",
+    68: "Prince Sigvald the Magnificent (Warriors of Chaos)",
+    69: "Valkia the Bloody (Warriors of Chaos)",
+    70: "Vilitch the Cursling (Warriors of Chaos)",
+    71: "Astragoth Ironhand (Chaos Dwarfs)",
+    72: "Drazhoath the Ashen (Chaos Dwarfs)",
+    73: "Zhaten the Black (Chaos Dwarfs)",
+    74: "Yuan Bo, the Jade Dragon (Grand Cathay)",
+    75: "Mother Ostankya (Kislev)",
+    76: "The Changeling (Tzeentch)",
+    77: "Malakai Makaisson (Dwarfs)",
+    78: "Epidemius (Nurgle)",
+    79: "Tamurkhan the Maggot Lord (Nurgle)",
+    80: "Gorbad Ironclaw (Greenskins)",
+    81: "Arbaal the Undefeated (Khorne)",
+    82: "Skulltaker (Khorne)",
+    83: "Golgfag Maneater (Ogre Kingdoms)",
+    84: "Be'lakor (Warriors of Chaos)",
+    85: "Miao Ying, the Storm Dragon (Grand Cathay)",
+    86: "Zhai Ming, the Iron Dragon (Grand Cathay)",
+    87: "The Daemon Prince (Daemons of Chaos)",
+    88: "Grombrindal - The White Dwarf (Dwarfs)",
+    89: "Volkmar the Grim (Empire)",
+    90: "Skarbrand (Khorne)",
+    91: "Kostaltyn (Kislev)",
+    92: "Tzarina Katarin (Kislev)",
+    93: "Boris Ursus (Kislev)",
+    94: "Ku'gath Plaguefather (Nurgle)",
+    95: "Skrag the Slaughterer (Ogre Kingdoms)",
+    96: "Greasus Goldtooth (Ogre Kingdoms)",
+    97: "N'Kari (Slaanesh)",
+    98: "Kairos Fateweaver (Tzeentch)",
+    99: "Helman Ghorst (Vampire Counts)",
+    100: "Sea Lord Aislinn (High Elves)",
+    101: "Sayl the Faithless (Sayl)",
+    102: "Dechala, the Denied One (Slaanesh)",
+    103: "The Masque of Slaanesh (Slaanesh)"
+}
+
 # faction table with columns faction_key, is_playable, has_home
 faction_table = [
     ["wh3_main_dae_daemon_prince", True, False],
