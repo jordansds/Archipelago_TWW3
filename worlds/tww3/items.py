@@ -4,6 +4,7 @@ if TYPE_CHECKING:
     from .world import TWW3World
 
 from BaseClasses import Item
+import math
 
 from .item_tables.filler_item_table import filler_weak_table, filler_strong_table, trap_harmless_table, trap_weak_table, trap_strong_table
 from .item_tables.effect_table import global_effect_table
@@ -13,6 +14,7 @@ from .item_tables.ritual_table import ritual_table
 from .item_tables.progressive_buildings_table import progressive_buildings_table
 from .item_tables.progressive_units_table import progressive_units_table
 from .item_tables.progressive_techs_table import progressive_techs_table
+from .item_tables.progression_table import progression_table
 
 from .item_tables.item_types import ItemType
 
@@ -29,6 +31,7 @@ item_table.update(progressive_buildings_table)
 item_table.update(progressive_units_table)
 item_table.update(progressive_techs_table)
 item_table.update(ritual_table)
+item_table.update(progression_table)
 
 class TWW3Item(Item):  # or from Items import MyGameItem
     game = "Total War Warhammer 3"  # name of the game/world this item is from
@@ -63,6 +66,7 @@ def createAllItems(world: TWW3World) -> None:
     pool = generateUnitItems(world, pool)
     pool = generateBuildingItems(world, pool)
     pool = generateRitualItems(world, pool)
+    pool = generateExpansionItems(world, pool)
     pool = generateFillerItems(world, pool)
     
     world.multiworld.itempool += pool
@@ -122,9 +126,14 @@ def generateRitualItems(world: TWW3World, pool: list) -> list:
                     pool.append(tww3_item)
     return pool
 
+def generateExpansionItems(world: TWW3World, pool: list) -> list:
+    for i in range(1, math.floor(world.options.number_of_locations/5)):
+        pool.append(TWW3Item("Administrative Capacity", item_table[1000].classification, 1000, player=world.player))
+    return pool
+
 def generateFillerItems(world: TWW3World, pool: list) -> list:
 
-    fillerFunctions = [generateFillerWeak, generateFillerStrong, generateTrapWeak, generateTrapStrong] #List of functions for generating filler
+    fillerFunctions = [generateFillerWeak, generateFillerStrong, generateTrapHarmless, generateTrapWeak, generateTrapStrong] #List of functions for generating filler
     weights = [world.options.filler_weak.value, world.options.filler_strong.value, world.options.trap_harmless.value, world.options.trap_weak.value, world.options.trap_strong.value] #list of weights defined in YAML
     
     if sum(weights) == 0:

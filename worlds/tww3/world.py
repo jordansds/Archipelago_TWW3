@@ -23,7 +23,7 @@ class TWW3World(World):
     options: TWW3Options  # typing hints for option results
     settings: ClassVar[TWW3Settings]  # will be automatically assigned from type hint
     origin_region_name = "Old World"
-    topology_present = False # show path to required location checks in spoiler
+    topology_present = True # show path to required location checks in spoiler
     
     item_list = []
     item_name_to_id = {data.name: item_id for item_id, data in items.item_table.items()}

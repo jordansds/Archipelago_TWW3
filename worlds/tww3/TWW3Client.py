@@ -13,6 +13,7 @@ from .item_tables.progressive_buildings_table import progressive_buildings_table
 from .item_tables.progressive_units_table import progressive_units_table
 from .item_tables.ritual_table import ritual_table
 from .item_tables.progressive_techs_table import progressive_techs_table
+from .item_tables.progression_table import progression_table
 from . import TWW3World
 import os
 from NetUtils import ClientStatus
@@ -89,6 +90,7 @@ class TWW3Context(CommonContext):
         self.item_table.update(progressive_units_table)
         self.item_table.update(progressive_techs_table)
         self.item_table.update(ritual_table)
+        self.item_table.update(progression_table)
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -156,13 +158,13 @@ class TWW3Context(CommonContext):
                     self.waaaghMessenger.run("cm:remove_event_restricted_unit_record_for_faction(\"%s\", \"%s\")" % (item.name, self.playerFaction))
             elif item.type == ItemType.progression:
                 self.expansionItems += 1
-                self.waaaghMessenger.run(f"cm:set_admin_capacity({self.expansionItems})")
+                self.waaaghMessenger.run(f"set_admin_capacity({self.expansionItems})")
                 logger.info(f"You now have: {self.expansionItems} Administrative Capacity")
                 logger.info(f"You can now control {self.expansionItems*5} settlements without penalties")
 
             elif item.type == ItemType.filler_weak:
                 if item.name == "Get-Rich-Quick Scroll":
-                    self.waaaghMessenger.run("cm:treasury_mod(\"%s\", cm:random_number(10000,1))" % (self.playerFaction))
+                    self.waaaghMessenger.run("cm:treasury_mod(\"%s\", cm:random_number(10000,1))" % self.playerFaction)
                 elif item.name == "Handfull of Order" :
                     self.waaaghMessenger.run("set_random_positive_public_order()")
                 elif item.name == "The GroBro 3000™":
@@ -279,7 +281,7 @@ class EngineInitializer:
         ###
         #Set Administrative Capacity
         ###
-        waaaghMessenger.run(f"cm:set_admin_capacity({context.expansionItems})")
+        #waaaghMessenger.run(f"set_admin_capacity({context.expansionItems})")
         
         ###
         #Randomise AI Personalities
