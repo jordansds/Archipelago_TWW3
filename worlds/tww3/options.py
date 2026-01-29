@@ -117,21 +117,21 @@ class FactionShuffle(DefaultOnToggle):
     """If you want to shuffle the settlements for each faction"""
     display_name = "FactionShuffle"
     
-class numberOfLocations(Range):
+class numberOfSettlements(Range):
     """Set how large your empire needs to be for victory. 565 Is the entire map.
     Make sure to change this value based on how fast you want your game to be.
     If world generation fails, then you will need to increase either this option or the next option."""
-    display_name = "NumberOfLocations"
+    display_name = "NumberOfSettlements"
     range_start = 20
     range_end = 565
     default = 100
     
-class checksPerLocation(Range):
+class checksPerSettlement(Range):
     """Set how many checks are triggered per empire size increase (empire size being the number of settlements you own).
     Depending on Yaml settings and the chosen faction, you will likely have around 100-200 non-filler items.
-    Make sure to change this value based on how many checks you want your game to contain.
+    Make sure to change this value based on how many apworld "locations" you want your game to have.
     If world generation fails, then you will need to increase either this option or the previous option."""
-    display_name = "ChecksPerLocation"
+    display_name = "ChecksPerSettlement"
     range_start = 1
     range_end = 10
     default = 3
@@ -257,8 +257,8 @@ class forceEarlyTechs(Toggle):
 class TWW3Options(PerGameCommonOptions):
     starting_faction: Faction
     faction_shuffle: FactionShuffle
-    number_of_locations: numberOfLocations
-    checks_per_location: checksPerLocation
+    number_of_settlements: numberOfSettlements
+    checks_per_settlement: checksPerSettlement
     admin_capacity: adminCapacity
     max_range: MaxRange
     tech_shuffle: TechShuffle

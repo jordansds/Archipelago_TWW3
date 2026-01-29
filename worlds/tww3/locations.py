@@ -28,8 +28,8 @@ def createRegularLocations(world: TWW3World) -> None:
     
     # Generate all but last location, which is saved for the victory event
     # Fill location checks based on number of locations and checks per location
-    for i in range(startingCheck, world.options.number_of_locations):
-        for j in range(world.options.checks_per_location):
+    for i in range(startingCheck, world.options.number_of_settlements):
+        for j in range(world.options.checks_per_settlement):
             locName = f"Empire Size {i} ({j})"
             locId = world.location_name_to_id[locName]
 
@@ -42,10 +42,10 @@ def createEvents(world: TWW3World) -> None:
     worldRegion = world.get_region("Old World")
     
     # Add victory event in the last location
-    locName = f"Empire Size {world.options.number_of_locations}"
+    locName = f"Empire Size {world.options.number_of_settlements}"
 
     location = TWW3Location(world.player, locName, None, worldRegion)
-    add_rule(location, lambda state, count=math.floor(world.options.number_of_locations/world.options.admin_capacity) - 1: state.has("Administrative Capacity", world.player, count))
+    add_rule(location, lambda state, count=math.floor(world.options.number_of_settlements / world.options.admin_capacity) - 1: state.has("Administrative Capacity", world.player, count))
     #print(f"{locName}: {math.floor(world.options.number_of_locations/5) - 1}")
     worldRegion.locations.append(location)  
     

@@ -28,10 +28,10 @@ def setBalance(world: TWW3World) -> None:
 
         for index, location in enumerate(worldRegion.locations):
             #This increments by 1 every 5 empire size in locations. E.g. Empire size 10 = 2, empire size 30 = 6
-            empireSizeInterval = math.floor(index / (world.options.admin_capacity * world.options.checks_per_location))
+            empireSizeInterval = math.floor(index / (world.options.admin_capacity * world.options.checks_per_settlement))
             # This sets the weighting for the item balancing.
             # The -1 ensures space is left for the admin capacity items.
-            weight = world.options.checks_per_location * world.options.admin_capacity * world.options.balance/100 - 1
+            weight = world.options.checks_per_settlement * world.options.admin_capacity * world.options.balance / 100 - 1
             requiredUnlockItems = min(empireSizeInterval * weight, counter)
             #print(f"{location}: {requiredUnlockItems}")
             add_rule(location, lambda state, count=requiredUnlockItems: state.has_group("Unlocks", world.player, count))
