@@ -23,17 +23,18 @@ class TWW3World(World):
     options: TWW3Options  # typing hints for option results
     settings: ClassVar[TWW3Settings]  # will be automatically assigned from type hint
     origin_region_name = "Old World"
-    topology_present = True # show path to required location checks in spoiler
+    topology_present = False # show path to required location checks in spoiler
     
     item_list = []
     #Need to check each progressive trigger and add items to item_table if required
+
     item_name_to_id = {item.name: key for key, item in items.item_table.items()}
-    
+
     locations = [f"Empire Size {i} ({j})" for i in range(1,566) for j in range(10)]
     location_name_to_id = {k: v for v, k in enumerate(locations, start=1)}
     
     sm: settlements.Settlement_Manager = None
-    
+
     def generate_early(self) -> None:
         self.player_faction = settlements.lord_name_to_faction_dict[self.options.starting_faction]
         self.sm: settlements.Settlement_Manager = settlements.Settlement_Manager(self.random)
@@ -47,6 +48,7 @@ class TWW3World(World):
         locations.createAllLocations(self)
 
     def create_items(self) -> None:
+        items.createItemTable(self)
         items.createAllItems(self)
         rules.setBalance(self)
 

@@ -23,7 +23,9 @@ def setBalance(world: TWW3World) -> None:
                 world.item_name_groups["Unlocks"].add(item.name)
                 counter += 1
 
+        print(counter)
+
         for index, location in enumerate(worldRegion.locations):
-            requiredUnlockItems = min(math.floor(index / (5 * world.options.checks_per_location)) * (world.options.checks_per_location * 5 * 0.6 - 1), counter)#len(world.item_name_groups["Unlocks"]))
-            #print(f"{location}: {requiredUnlockItems}")
+            requiredUnlockItems = min(math.floor(index / (5 * world.options.checks_per_location)) * (world.options.checks_per_location * 5 * world.options.balance/100 - 1), counter)#len(world.item_name_groups["Unlocks"]))
+            print(f"{location}: {requiredUnlockItems}")
             add_rule(location, lambda state, count=requiredUnlockItems: state.has_group("Unlocks", world.player, count))

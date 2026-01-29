@@ -1,3 +1,5 @@
+from random import choice
+
 from Options import Choice, DeathLink, DefaultOnToggle, Range, StartInventoryPool, PerGameCommonOptions, Toggle
 from dataclasses import dataclass
 
@@ -127,10 +129,6 @@ class checksPerLocation(Range):
     range_start = 1
     range_end = 10
     default = 3
-    
-class balance(DefaultOnToggle):
-    """If you want to balance the unlocks closer to the start of the apworld"""
-    display_name = "balance"
 
 class MaxRange(Range):
     """How far away a Settlement can be from a factions other settlements.
@@ -212,17 +210,40 @@ class trapStrong(Range):
     range_end = 100
     default = 20
 
-class RandomizePersonalities(Toggle):
+class RandomizePersonalities(DefaultOnToggle):
     """Randomize AI Personalities."""
     display_name = "Randomize Personality of each AI faction"
+
+class balance(Range):
+    """If you want to balance the unlocks closer to the start of the multiworld.
+    0 introduces no forced balancing. 100 introduces maximised balancing.
+    High values are not recommended and may result in crashes during multiworld generation."""
+    display_name = "balance"
+    range_start = 0
+    range_end = 100
+    default = 0
+
+class forceEarlyBuildings(Toggle):
+    """If Buildings should be forced to generate near the start of the multiworld.
+    Requires BuildingShuffle to be on and balance to be greater than 0."""
+    display_name = "ForceEarlyBuildings"
+
+class forceEarlyUnits(Toggle):
+    """If Buildings should be forced to generate near the start of the multiworld.
+    Requires BuildingShuffle to be on and balance to be greater than 0."""
+    display_name = "ForceEarlyUnits"
+
+class forceEarlyTechs(Toggle):
+    """If Buildings should be forced to generate near the start of the multiworld.
+    Requires BuildingShuffle to be on and balance to be greater than 0."""
+    display_name = "ForceEarlyTechs"
 
 @dataclass
 class TWW3Options(PerGameCommonOptions):
     starting_faction: Faction
     faction_shuffle: FactionShuffle
-    number_of_locations: numberOfLocations 
+    number_of_locations: numberOfLocations
     checks_per_location: checksPerLocation
-    balance: balance
     max_range: MaxRange
     tech_shuffle: TechShuffle
     progressive_technologies: ProgressiveTechnologies
@@ -238,3 +259,33 @@ class TWW3Options(PerGameCommonOptions):
     trap_strong: trapStrong
     randomize_personalities: RandomizePersonalities
     ritual_shuffle: RitualShuffle
+    balance: balance
+    force_early_buildings: forceEarlyBuildings
+    force_early_units: forceEarlyUnits
+    force_early_techs: forceEarlyTechs
+
+"""
+@dataclass
+class TWW3Options(PerGameCommonOptions):
+    starting_faction: Faction
+    faction_shuffle: FactionShuffle
+    number_of_locations: numberOfLocations 
+    checks_per_location: checksPerLocation
+    max_range: MaxRange
+    tech_shuffle: TechShuffle
+    progressive_technologies: ProgressiveTechnologies
+    building_shuffle: BuildingShuffle
+    progressive_buildings: ProgressiveBuildings
+    unit_shuffle: UnitShuffle
+    progressive_units: ProgressiveUnits
+    starting_tier: StartingTier
+    filler_weak: fillerWeak
+    filler_strong: fillerStrong
+    trap_harmless: trapHarmless
+    trap_weak: trapWeak
+    trap_strong: trapStrong
+    randomize_personalities: RandomizePersonalities
+    ritual_shuffle: RitualShuffle
+    balance: balance
+    
+"""

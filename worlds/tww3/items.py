@@ -17,8 +17,10 @@ from .item_tables.progressive_techs_table import progressive_techs_table
 from .item_tables.progression_table import progression_table
 
 from .item_tables.item_types import ItemType, ItemData
+from .options import TWW3Options
 
-item_table = dict(filler_weak_table)
+item_table = {}
+item_table.update(filler_weak_table)
 item_table.update(filler_strong_table)
 item_table.update(trap_harmless_table)
 item_table.update(trap_weak_table)
@@ -33,14 +35,21 @@ item_table.update(progressive_techs_table)
 item_table.update(ritual_table)
 item_table.update(progression_table)
 
-for key, item in unique_item_table.items():
-    if item.type == ItemType.building or item.type == ItemType.unit:
-        new_item = ItemData(IC.progression, item[1], item[2], item[3], item[4], item[5], item[6])
-        item_table[key] = new_item
-
 class TWW3Item(Item):  # or from Items import MyGameItem
     game = "Total War Warhammer 3"  # name of the game/world this item is from
-    
+
+    options_dataclass = TWW3Options  # options the player can set
+    options: TWW3Options  # typing hints for option results
+
+def createItemTable(world: TWW3World) -> None:
+    for key, item in unique_item_table.items():
+        if item.type == ItemType.building and world.options.force_early_buildings:
+            item_table[key] = ItemData(IC.progression, item[1], item[2], item[3], item[4], item[5], item[6])
+        elif item.type == ItemType.unit and world.options.force_early_units:
+            item_table[key] = ItemData(IC.progression, item[1], item[2], item[3], item[4], item[5], item[6])
+        elif item.type == ItemType.tech and world.options.force_early_techs:
+            item_table[key] = ItemData(IC.progression, item[1], item[2], item[3], item[4], item[5], item[6])
+
 def createAllItems(world: TWW3World) -> None:
     pool: list[TWW3Item] = []
 
