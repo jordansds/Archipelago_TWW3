@@ -140,8 +140,8 @@ class adminCapacity(Range):
     """Set how many settlements you can own before needing an additional admin capacity item to avoid debuffs.
     Currently, is forced to 5 until I get around to updating the lua mod"""
     display_name = "SettlementsPerAdminCapacity"
-    range_start = 5
-    range_end = 5
+    range_start = 1
+    range_end = 565
     default = 5
 
 class MaxRange(Range):

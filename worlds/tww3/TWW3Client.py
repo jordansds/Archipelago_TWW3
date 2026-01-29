@@ -283,11 +283,6 @@ class EngineInitializer:
         startingTier = context.startingTier
         waaaghMessenger = context.waaaghMessenger
         isFirstPlayerSettlement = True
-
-        ###
-        #Set Administrative Capacity
-        ###
-        #waaaghMessenger.run(f"set_admin_capacity({context.expansionItems})")
         
         ###
         #Randomise AI Personalities
@@ -347,6 +342,11 @@ class EngineInitializer:
             cls.lock_progressive_buildings(playerFaction, startingTier, waaaghMessenger, context.item_table, context.progressive_items_flags)
         if context.progressiveUnits:
             cls.lock_progressive_units(playerFaction, startingTier, waaaghMessenger, context.item_table, context.progressive_items_flags)
+
+        ###
+        #Set Administrative Capacity
+        ###
+        waaaghMessenger.run(f"set_settlements_per_admin_capacity({context.adminCapacity})")
 
     def lock_progressive_techs(playerFaction, waaaghMessenger, item_table, progressive_items_flags):
         for key, item in item_table.items():
