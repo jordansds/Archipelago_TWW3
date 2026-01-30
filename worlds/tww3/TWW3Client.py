@@ -5,7 +5,7 @@ import colorama
 import logging
 from .locations_table.settlements import lord_name_to_faction_dict, faction_name_to_readable
 from .item_tables.item_types import ItemType
-from .item_tables.filler_item_table import filler_weak_table, filler_strong_table, trap_weak_table, trap_strong_table
+from .item_tables.filler_item_table import filler_weak_table, filler_strong_table, trap_harmless_table, trap_weak_table, trap_strong_table
 from .item_tables.effect_table import global_effect_table
 from .item_tables.ancillaries_table import ancillaries_regular_table, ancillaries_legendary_table
 from .item_tables.unique_item_table import unique_item_table
@@ -83,6 +83,7 @@ class TWW3Context(CommonContext):
         self.item_table.update(global_effect_table)
         self.item_table.update(ancillaries_regular_table)
         self.item_table.update(ancillaries_legendary_table)
+        self.item_table.update(trap_harmless_table)
         self.item_table.update(trap_weak_table)
         self.item_table.update(trap_strong_table)
         self.item_table.update(unique_item_table)
@@ -228,7 +229,8 @@ class TWW3Context(CommonContext):
                 self.progressive_items_flags[key] += 1
                 break
         for key, item in self.item_table.items():
-            if (item.faction == self.playerFaction) and (item.progressionGroup == progressionGroup) and (item.tier == level_to_unlock):
+            if item.faction == self.playerFaction and item.progressionGroup == progressionGroup and item.tier == level_to_unlock:
+                #print("cm:remove_event_restricted_unit_record_for_faction(\"%s\", \"%s\")" % (item.name, self.playerFaction))
                 self.waaaghMessenger.run("cm:remove_event_restricted_unit_record_for_faction(\"%s\", \"%s\")" % (item.name, self.playerFaction))
 
     def send_next_progressive_tech(self, progressionGroup):
@@ -329,11 +331,11 @@ class EngineInitializer:
         ###
         for itemNumber in randitem_list:
             itemData = context.item_table[itemNumber]
-            if (itemData.type == ItemType.tech) and (context.progressiveTechs == False) and (itemData.progressionGroup != None):
+            if (itemData.type == ItemType.tech) and (not context.progressiveTechs) and (itemData.progressionGroup is not None):
                 waaaghMessenger.run("cm:lock_one_technology_node(\"%s\", \"%s\")" % (playerFaction, itemData.name))
-            elif (itemData.type == ItemType.building) and (context.progressiveBuildings == False) and (itemData.progressionGroup != None):
+            elif (itemData.type == ItemType.building) and (not context.progressiveBuildings) and (itemData.progressionGroup is not None):
                 waaaghMessenger.run("cm:add_event_restricted_building_record_for_faction(\"%s\", \"%s\")" % (itemData.name, playerFaction))
-            elif (itemData.type == ItemType.unit) and (context.progressiveUnits == False) and (itemData.progressionGroup != None):
+            elif (itemData.type == ItemType.unit) and (not context.progressiveUnits) and (itemData.progressionGroup is not None):
                 waaaghMessenger.run("cm:add_event_restricted_unit_record_for_faction(\"%s\", \"%s\")" % (itemData.name, playerFaction))
                 
         if context.progressiveTechs:
@@ -360,13 +362,13 @@ class EngineInitializer:
                 if item.tier + 1 > startingTier:
                     waaaghMessenger.run("cm:add_event_restricted_building_record_for_faction(\"%s\", \"%s\")" % (item.name, playerFaction))
                 else:
-                    progressive_items_flags[id] = 1
+                    progressive_items_flags[key] = 1
 
     def lock_progressive_units(playerFaction, startingTier, waaaghMessenger, item_table, progressive_items_flags):
         for key, item in item_table.items():
             if (item.faction == playerFaction) and (item.type == ItemType.unit) and (item.progressionGroup != None):
                 # The Amount of progressive Items per Group is saved on the first index with that progression Group, but since we don't know the first item of each progression Group, we set all items to the starting Tier for now.
-                progressive_items_flags[id] = startingTier + 1
+                progressive_items_flags[key] = startingTier + 1
                 if item.tier > startingTier:
                     waaaghMessenger.run("cm:add_event_restricted_unit_record_for_faction(\"%s\", \"%s\")" % (item.name, playerFaction))
 
